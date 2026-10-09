@@ -33,13 +33,13 @@ st.set_page_config(
 # Presentation only: analytical functions and models below are unchanged.
 px.defaults.template = "plotly_white"
 px.defaults.color_discrete_sequence = [
-    "#6D982B", "#465A6B", "#609C99", "#9B875F", "#7D7191", "#87949E"
+    "#93BA3F", "#B8D67B", "#658B2D", "#D2E5AB", "#485E30", "#9FAA90"
 ]
 
 st.markdown(
     """
     <style>
-    .stApp { background: #FFFFFF; color: #20252B; }
+    .stApp { background: #F6F7F3; color: #20252B; }
     .block-container { padding-top: 2.2rem; padding-bottom: 2rem; max-width: 1600px; }
     h1, h2, h3 { color: #20252B; letter-spacing: -0.025em; }
     [data-testid="stSidebar"] { background: #F5F6F7; color: #20252B; border-right: 1px solid #DDE1E5; }
@@ -86,6 +86,30 @@ st.markdown(
     [data-testid="stExpander"] { border-color: #DDE1E5; color: #20252B; }
     @media (max-width: 700px) { .ccid-heading h1 { font-size: 2rem; }
         .block-container { padding-left: 1rem; padding-right: 1rem; } }
+
+    /* Sidebar uses its own dark palette; the analysis area stays light. */
+    [data-testid="stSidebar"] { background: #0B0D0B; border-right: 1px solid #252A23; }
+    [data-testid="stSidebar"] h1, [data-testid="stSidebar"] h2,
+    [data-testid="stSidebar"] h3, [data-testid="stSidebar"] [data-testid="stWidgetLabel"] p,
+    [data-testid="stSidebar"] [data-testid="stMarkdownContainer"] { color: #F4F6F0; }
+    [data-testid="stSidebar"] [data-testid="stCaptionContainer"] { color: #C0C6B9; }
+    [data-testid="stSidebar"] .ccid-side-brand { color: #FFFFFF; }
+    [data-testid="stSidebar"] .ccid-side-sub { color: #BFC6B4; }
+    [data-testid="stSidebar"] hr { border-color: #30372C; }
+    [data-testid="stSidebar"] input, [data-testid="stSidebar"] textarea,
+    [data-testid="stSidebar"] [data-baseweb="select"] > div {
+        background-color: #20261C !important; color: #F4F6F0 !important;
+        -webkit-text-fill-color: #F4F6F0 !important; }
+    [data-testid="stSidebar"] input::placeholder, [data-testid="stSidebar"] textarea::placeholder {
+        color: #BAC4AF !important; -webkit-text-fill-color: #BAC4AF !important; }
+    [data-testid="stSidebar"] [data-testid="stAlert"] { background: #20291A; border: 1px solid #36442C; }
+    [data-testid="stSidebar"] [data-testid="stAlert"] [data-testid="stMarkdownContainer"] { color: #DFE8D5; }
+    [data-testid="stSidebar"] [data-testid="stFileUploaderDropzone"] { background: #20261C; }
+    [data-testid="stSidebar"] [data-testid="stFileUploaderDropzone"] p { color: #F4F6F0; }
+    [data-testid="stSidebar"] [data-testid="stButton"] button p { color: #17220B; }
+    [data-testid="stMain"] [data-testid="stPlotlyChart"] { background: #FFFFFF;
+        border: 1px solid #DEE3D7; border-radius: 10px; padding: .75rem; }
+    [data-testid="stMain"] [data-testid="stDataFrame"] { background: #FFFFFF; border-color: #DEE3D7; }
     </style>
     <div class="ccid-heading">
         <div class="ccid-eyebrow">FINDER UK · CONTENT INTELLIGENCE</div>
@@ -2073,7 +2097,7 @@ with tab1:
             st.markdown(f"### {competitor} — {platform}")
 
             display_df = group_df.reset_index(drop=True)
-            st.dataframe(display_df, use_container_width=True)
+            st.dataframe(display_df.style.set_properties(**{"background-color": "#FFFFFF", "color": "#20251B"}), use_container_width=True)
 
             csv = display_df.to_csv(index=False).encode("utf-8")
 
@@ -2087,7 +2111,7 @@ with tab1:
 
         st.markdown("---")
         st.markdown("### Full Combined Benchmark Table")
-        st.dataframe(benchmark.reset_index(drop=True), use_container_width=True)
+        st.dataframe(benchmark.reset_index(drop=True).style.set_properties(**{"background-color": "#FFFFFF", "color": "#20251B"}), use_container_width=True)
 
         full_csv = benchmark.to_csv(index=False).encode("utf-8")
 
@@ -2134,7 +2158,7 @@ with tab2:
         platform_summary["Avg_Comments"] = platform_summary["Avg_Comments"].round(1)
 
         st.markdown("### Competitor + Platform Summary")
-        st.dataframe(platform_summary, use_container_width=True)
+        st.dataframe(platform_summary.style.set_properties(**{"background-color": "#FFFFFF", "color": "#20251B"}), use_container_width=True)
 
         chart_col1, chart_col2 = st.columns(2)
 
@@ -2181,7 +2205,7 @@ with tab2:
             )
 
             st.markdown("#### Full Top Posts Ranking")
-            st.dataframe(global_top_posts, use_container_width=True)
+            st.dataframe(global_top_posts.style.set_properties(**{"background-color": "#FFFFFF", "color": "#20251B"}), use_container_width=True)
 
             st.markdown("#### Grouped View")
 
@@ -2195,7 +2219,7 @@ with tab2:
                         .reset_index(drop=True)
                     )
 
-                    st.dataframe(display_platform_posts, use_container_width=True)
+                    st.dataframe(display_platform_posts.style.set_properties(**{"background-color": "#FFFFFF", "color": "#20251B"}), use_container_width=True)
 
             else:
                 for competitor, competitor_df in global_top_posts.groupby("Competitor"):
@@ -2207,7 +2231,7 @@ with tab2:
                         .reset_index(drop=True)
                     )
 
-                    st.dataframe(display_competitor_posts, use_container_width=True)
+                    st.dataframe(display_competitor_posts.style.set_properties(**{"background-color": "#FFFFFF", "color": "#20251B"}), use_container_width=True)
 
     else:
         st.info("Run analysis to see performance summary.")
@@ -2254,7 +2278,7 @@ with tab3:
                         .reset_index(drop=True)
                     )
 
-                    st.dataframe(display_topic, use_container_width=True)
+                    st.dataframe(display_topic.style.set_properties(**{"background-color": "#FFFFFF", "color": "#20251B"}), use_container_width=True)
 
             else:
                 for competitor, competitor_df in topic_summary.groupby("Competitor"):
@@ -2266,7 +2290,7 @@ with tab3:
                         .reset_index(drop=True)
                     )
 
-                    st.dataframe(display_topic, use_container_width=True)
+                    st.dataframe(display_topic.style.set_properties(**{"background-color": "#FFFFFF", "color": "#20251B"}), use_container_width=True)
 
             st.markdown("---")
             st.markdown("### Format Summary")
@@ -2294,7 +2318,7 @@ with tab3:
                         .reset_index(drop=True)
                     )
 
-                    st.dataframe(display_format, use_container_width=True)
+                    st.dataframe(display_format.style.set_properties(**{"background-color": "#FFFFFF", "color": "#20251B"}), use_container_width=True)
 
             else:
                 for competitor, competitor_df in format_summary.groupby("Competitor"):
@@ -2306,7 +2330,7 @@ with tab3:
                         .reset_index(drop=True)
                     )
 
-                    st.dataframe(display_format, use_container_width=True)
+                    st.dataframe(display_format.style.set_properties(**{"background-color": "#FFFFFF", "color": "#20251B"}), use_container_width=True)
 
     else:
         st.info("Run analysis to see topic analysis.")
@@ -2326,7 +2350,7 @@ with tab4:
             st.markdown(f"#### {competitor} — {platform}")
 
             display_comments = group_df.reset_index(drop=True)
-            st.dataframe(display_comments, use_container_width=True)
+            st.dataframe(display_comments.style.set_properties(**{"background-color": "#FFFFFF", "color": "#20251B"}), use_container_width=True)
 
             csv_comments_group = display_comments.to_csv(index=False).encode("utf-8")
 
@@ -2340,7 +2364,7 @@ with tab4:
 
         st.markdown("---")
         st.markdown("### Full Combined Comment-Level Coding Table")
-        st.dataframe(comments_df.reset_index(drop=True), use_container_width=True)
+        st.dataframe(comments_df.reset_index(drop=True).style.set_properties(**{"background-color": "#FFFFFF", "color": "#20251B"}), use_container_width=True)
 
         full_comments_csv = comments_df.to_csv(index=False).encode("utf-8")
 
@@ -2353,7 +2377,7 @@ with tab4:
 
         st.markdown("---")
         st.markdown("### Overall Comment Summary")
-        st.dataframe(comment_summary, use_container_width=True)
+        st.dataframe(comment_summary.style.set_properties(**{"background-color": "#FFFFFF", "color": "#20251B"}), use_container_width=True)
 
         st.markdown("---")
         st.markdown("### Comment Summary by Competitor and Platform")
@@ -2375,7 +2399,7 @@ with tab4:
         comment_group_summary["Substantive_Share"] = (comment_group_summary["Substantive_Share"] * 100).round(1)
         comment_group_summary["Question_Share"] = (comment_group_summary["Question_Share"] * 100).round(1)
 
-        st.dataframe(comment_group_summary, use_container_width=True)
+        st.dataframe(comment_group_summary.style.set_properties(**{"background-color": "#FFFFFF", "color": "#20251B"}), use_container_width=True)
 
         st.markdown("---")
         st.markdown("### Comment Distribution")
@@ -2561,7 +2585,7 @@ with tab5:
                 errors="ignore"
             )
 
-        st.dataframe(comparison, use_container_width=True)
+        st.dataframe(comparison.style.set_properties(**{"background-color": "#FFFFFF", "color": "#20251B"}), use_container_width=True)
 
         comparison_csv = comparison.to_csv(index=False).encode("utf-8")
 
@@ -2710,7 +2734,7 @@ with tab7:
 
         st.markdown("### Training data preview")
         st.write(f"Rows available for training: **{len(ml_df)}**")
-        st.dataframe(ml_df.head(20), use_container_width=True)
+        st.dataframe(ml_df.head(20).style.set_properties(**{"background-color": "#FFFFFF", "color": "#20251B"}), use_container_width=True)
 
         if len(ml_df) < 10:
             st.warning(
@@ -2759,7 +2783,7 @@ with tab7:
                     ]
                 )
 
-                st.dataframe(metrics_df, use_container_width=True)
+                st.dataframe(metrics_df.style.set_properties(**{"background-color": "#FFFFFF", "color": "#20251B"}), use_container_width=True)
 
                 st.markdown("### Predict a new content idea")
 
